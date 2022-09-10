@@ -2,10 +2,8 @@ package com.lazykuna.folderarchiver
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.*
-import androidx.core.app.ActivityCompat.startActivityForResult
 import java.io.File
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -30,13 +28,17 @@ class DialogTaskDef(private val ctx: Context, existingTaskDef: ArchiveTaskDefIte
         // TODO: get parameter as parent activity and move handler to here
         findViewById<Button>(R.id.btn_add_nomedia).setOnClickListener { view ->
             val taskDef = createTaskDef()
-            var dstDir = taskDef.dst_dir
-            if (!dstDir.endsWith("/")) {
-                dstDir = "$dstDir/"
+            var srcDir = taskDef.src_dir
+            if (!srcDir.endsWith("/")) {
+                srcDir = "$srcDir/"
             }
-            val nomediaPath = "${dstDir}.nomedia"
+            val nomediaPath = "${srcDir}.nomedia"
             if (File(nomediaPath).exists()) {
                 Toast.makeText(ctx, "nomedia Already exists", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else if (!File(nomediaPath).isDirectory) {
+                Toast.makeText(ctx, "Source directory is not a directory, is it exists?",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             try {
