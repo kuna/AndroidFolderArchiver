@@ -47,6 +47,7 @@ Folder Archiver for Android
 * Add unit/feature test. No unit test as this project is made in a hurry (and simple).
 * Add detailed help dialogs in application
 * Bug: folder select dialog won't show up when modifying.
+* Add CI
 
 # License
 
